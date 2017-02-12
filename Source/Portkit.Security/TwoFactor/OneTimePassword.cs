@@ -30,7 +30,7 @@ namespace Portkit.Security.TwoFactor
                          | (hash[offset + 2] << 8)
                          | (hash[offset + 3]);
 
-            var token = binary % (int)Math.Pow(10, digits);
+            var token = binary % (int) Math.Pow(10, digits);
             return token.ToString().PadLeft(digits, '0');
         }
     }

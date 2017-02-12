@@ -27,14 +27,14 @@ namespace Portkit.Security.TwoFactor
         {
         }
 
-        public long GetCounter(DateTime dateTime) => (long)(GetTimestamp(dateTime) / TimeStep.TotalSeconds);
+        public long GetCounter(DateTime dateTime) => (long) (GetTimestamp(dateTime) / TimeStep.TotalSeconds);
 
         public long GetCounter() => GetCounter(Now);
 
         public TimeSpan GetExpirationInterval()
         {
             var now = GetTimestamp(Now);
-            var next = (long)(now / TimeStep.TotalSeconds) + 1L;
+            var next = (long) (now / TimeStep.TotalSeconds) + 1L;
             var remainingSeconds = (next - (now / TimeStep.TotalSeconds)) * TimeStep.TotalSeconds;
             return TimeSpan.FromSeconds(remainingSeconds);
         }

@@ -14,24 +14,24 @@
                 return string.Empty;
             }
 
-            var output = new char[(int)decimal.Ceiling((input.Length / (decimal)BITS_IN_BLOCK)) * BITS_IN_BYTE];
+            var output = new char[(int) decimal.Ceiling((input.Length / (decimal) BITS_IN_BLOCK)) * BITS_IN_BYTE];
             var position = 0;
             byte workingByte = 0, remainingBits = BITS_IN_BLOCK;
 
             foreach (var currentByte in input)
             {
-                workingByte = (byte)(workingByte | (currentByte >> (BITS_IN_BYTE - remainingBits)));
+                workingByte = (byte) (workingByte | (currentByte >> (BITS_IN_BYTE - remainingBits)));
                 output[position++] = ALPHABET[workingByte];
 
                 if (remainingBits < BITS_IN_BYTE - BITS_IN_BLOCK)
                 {
-                    workingByte = (byte)((currentByte >> (BITS_IN_BYTE - BITS_IN_BLOCK - remainingBits)) & 31);
+                    workingByte = (byte) ((currentByte >> (BITS_IN_BYTE - BITS_IN_BLOCK - remainingBits)) & 31);
                     output[position++] = ALPHABET[workingByte];
                     remainingBits += BITS_IN_BLOCK;
                 }
 
                 remainingBits -= BITS_IN_BYTE - BITS_IN_BLOCK;
-                workingByte = (byte)((currentByte << remainingBits) & 31);
+                workingByte = (byte) ((currentByte << remainingBits) & 31);
             }
 
             if (position != output.Length)
@@ -68,15 +68,16 @@
                 if (bitsRemaining > BITS_IN_BLOCK)
                 {
                     mask = currentCharPosition << (bitsRemaining - BITS_IN_BLOCK);
-                    workingByte = (byte)(workingByte | mask);
+                    workingByte = (byte) (workingByte | mask);
                     bitsRemaining -= BITS_IN_BLOCK;
                 }
                 else
                 {
                     mask = currentCharPosition >> (BITS_IN_BLOCK - bitsRemaining);
-                    workingByte = (byte)(workingByte | mask);
+                    workingByte = (byte) (workingByte | mask);
                     output[position++] = workingByte;
-                    workingByte = unchecked((byte)(currentCharPosition << (BITS_IN_BYTE - BITS_IN_BLOCK + bitsRemaining)));
+                    workingByte = unchecked((byte) (currentCharPosition <<
+                                                    (BITS_IN_BYTE - BITS_IN_BLOCK + bitsRemaining)));
                     bitsRemaining += BITS_IN_BYTE - BITS_IN_BLOCK;
                 }
             }

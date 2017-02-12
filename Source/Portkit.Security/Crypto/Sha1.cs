@@ -97,12 +97,13 @@ namespace Portkit.Security.Crypto
 
             for (i = 0; i < count - count % MESSAGE_BLOCK_SIZE; i += MESSAGE_BLOCK_SIZE)
             {
-                ProcessMessage(buffer, (uint)(offset + i));
+                ProcessMessage(buffer, (uint) (offset + i));
             }
 
             if (count % MESSAGE_BLOCK_SIZE != 0)
             {
-                Buffer.BlockCopy(buffer, count - count % MESSAGE_BLOCK_SIZE + offset, _messageBuffer, 0, count % MESSAGE_BLOCK_SIZE);
+                Buffer.BlockCopy(buffer, count - count % MESSAGE_BLOCK_SIZE + offset, _messageBuffer, 0,
+                    count % MESSAGE_BLOCK_SIZE);
                 _messageCount = count % MESSAGE_BLOCK_SIZE;
             }
             return GetSha1ByteArray();
@@ -132,7 +133,7 @@ namespace Portkit.Security.Crypto
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    result[i * 4 + j] = (byte)(_hashBuffer[i] >> (8 * (3 - j)));
+                    result[i * 4 + j] = (byte) (_hashBuffer[i] >> (8 * (3 - j)));
                 }
             }
             return result;
@@ -236,8 +237,8 @@ namespace Portkit.Security.Crypto
 
         private void DigestMessage(byte[] message, int offset, int count)
         {
-            ulong total = _count + (ulong)count;
-            int paddingSize = (56 - (int)(total % MESSAGE_BLOCK_SIZE));
+            ulong total = _count + (ulong) count;
+            int paddingSize = (56 - (int) (total % MESSAGE_BLOCK_SIZE));
 
             if (paddingSize < 1)
             {
@@ -269,22 +270,38 @@ namespace Portkit.Security.Crypto
 
         private static void PopulateBuffer(uint[] buff, byte[] input, uint inputOffset)
         {
-            buff[0] = (uint)((input[inputOffset + 0] << 24) | (input[inputOffset + 1] << 16) | (input[inputOffset + 2] << 8) | (input[inputOffset + 3]));
-            buff[1] = (uint)((input[inputOffset + 4] << 24) | (input[inputOffset + 5] << 16) | (input[inputOffset + 6] << 8) | (input[inputOffset + 7]));
-            buff[2] = (uint)((input[inputOffset + 8] << 24) | (input[inputOffset + 9] << 16) | (input[inputOffset + 10] << 8) | (input[inputOffset + 11]));
-            buff[3] = (uint)((input[inputOffset + 12] << 24) | (input[inputOffset + 13] << 16) | (input[inputOffset + 14] << 8) | (input[inputOffset + 15]));
-            buff[4] = (uint)((input[inputOffset + 16] << 24) | (input[inputOffset + 17] << 16) | (input[inputOffset + 18] << 8) | (input[inputOffset + 19]));
-            buff[5] = (uint)((input[inputOffset + 20] << 24) | (input[inputOffset + 21] << 16) | (input[inputOffset + 22] << 8) | (input[inputOffset + 23]));
-            buff[6] = (uint)((input[inputOffset + 24] << 24) | (input[inputOffset + 25] << 16) | (input[inputOffset + 26] << 8) | (input[inputOffset + 27]));
-            buff[7] = (uint)((input[inputOffset + 28] << 24) | (input[inputOffset + 29] << 16) | (input[inputOffset + 30] << 8) | (input[inputOffset + 31]));
-            buff[8] = (uint)((input[inputOffset + 32] << 24) | (input[inputOffset + 33] << 16) | (input[inputOffset + 34] << 8) | (input[inputOffset + 35]));
-            buff[9] = (uint)((input[inputOffset + 36] << 24) | (input[inputOffset + 37] << 16) | (input[inputOffset + 38] << 8) | (input[inputOffset + 39]));
-            buff[10] = (uint)((input[inputOffset + 40] << 24) | (input[inputOffset + 41] << 16) | (input[inputOffset + 42] << 8) | (input[inputOffset + 43]));
-            buff[11] = (uint)((input[inputOffset + 44] << 24) | (input[inputOffset + 45] << 16) | (input[inputOffset + 46] << 8) | (input[inputOffset + 47]));
-            buff[12] = (uint)((input[inputOffset + 48] << 24) | (input[inputOffset + 49] << 16) | (input[inputOffset + 50] << 8) | (input[inputOffset + 51]));
-            buff[13] = (uint)((input[inputOffset + 52] << 24) | (input[inputOffset + 53] << 16) | (input[inputOffset + 54] << 8) | (input[inputOffset + 55]));
-            buff[14] = (uint)((input[inputOffset + 56] << 24) | (input[inputOffset + 57] << 16) | (input[inputOffset + 58] << 8) | (input[inputOffset + 59]));
-            buff[15] = (uint)((input[inputOffset + 60] << 24) | (input[inputOffset + 61] << 16) | (input[inputOffset + 62] << 8) | (input[inputOffset + 63]));
+            buff[0] = (uint) ((input[inputOffset + 0] << 24) | (input[inputOffset + 1] << 16) |
+                              (input[inputOffset + 2] << 8) | (input[inputOffset + 3]));
+            buff[1] = (uint) ((input[inputOffset + 4] << 24) | (input[inputOffset + 5] << 16) |
+                              (input[inputOffset + 6] << 8) | (input[inputOffset + 7]));
+            buff[2] = (uint) ((input[inputOffset + 8] << 24) | (input[inputOffset + 9] << 16) |
+                              (input[inputOffset + 10] << 8) | (input[inputOffset + 11]));
+            buff[3] = (uint) ((input[inputOffset + 12] << 24) | (input[inputOffset + 13] << 16) |
+                              (input[inputOffset + 14] << 8) | (input[inputOffset + 15]));
+            buff[4] = (uint) ((input[inputOffset + 16] << 24) | (input[inputOffset + 17] << 16) |
+                              (input[inputOffset + 18] << 8) | (input[inputOffset + 19]));
+            buff[5] = (uint) ((input[inputOffset + 20] << 24) | (input[inputOffset + 21] << 16) |
+                              (input[inputOffset + 22] << 8) | (input[inputOffset + 23]));
+            buff[6] = (uint) ((input[inputOffset + 24] << 24) | (input[inputOffset + 25] << 16) |
+                              (input[inputOffset + 26] << 8) | (input[inputOffset + 27]));
+            buff[7] = (uint) ((input[inputOffset + 28] << 24) | (input[inputOffset + 29] << 16) |
+                              (input[inputOffset + 30] << 8) | (input[inputOffset + 31]));
+            buff[8] = (uint) ((input[inputOffset + 32] << 24) | (input[inputOffset + 33] << 16) |
+                              (input[inputOffset + 34] << 8) | (input[inputOffset + 35]));
+            buff[9] = (uint) ((input[inputOffset + 36] << 24) | (input[inputOffset + 37] << 16) |
+                              (input[inputOffset + 38] << 8) | (input[inputOffset + 39]));
+            buff[10] = (uint) ((input[inputOffset + 40] << 24) | (input[inputOffset + 41] << 16) |
+                               (input[inputOffset + 42] << 8) | (input[inputOffset + 43]));
+            buff[11] = (uint) ((input[inputOffset + 44] << 24) | (input[inputOffset + 45] << 16) |
+                               (input[inputOffset + 46] << 8) | (input[inputOffset + 47]));
+            buff[12] = (uint) ((input[inputOffset + 48] << 24) | (input[inputOffset + 49] << 16) |
+                               (input[inputOffset + 50] << 8) | (input[inputOffset + 51]));
+            buff[13] = (uint) ((input[inputOffset + 52] << 24) | (input[inputOffset + 53] << 16) |
+                               (input[inputOffset + 54] << 8) | (input[inputOffset + 55]));
+            buff[14] = (uint) ((input[inputOffset + 56] << 24) | (input[inputOffset + 57] << 16) |
+                               (input[inputOffset + 58] << 8) | (input[inputOffset + 59]));
+            buff[15] = (uint) ((input[inputOffset + 60] << 24) | (input[inputOffset + 61] << 16) |
+                               (input[inputOffset + 62] << 8) | (input[inputOffset + 63]));
 
             uint val;
             int i = 16;
@@ -319,14 +336,14 @@ namespace Portkit.Security.Crypto
 
         private static void PadMessageLength(ulong length, byte[] buffer, int position)
         {
-            buffer[position++] = (byte)(length >> 56);
-            buffer[position++] = (byte)(length >> 48);
-            buffer[position++] = (byte)(length >> 40);
-            buffer[position++] = (byte)(length >> 32);
-            buffer[position++] = (byte)(length >> 24);
-            buffer[position++] = (byte)(length >> 16);
-            buffer[position++] = (byte)(length >> 8);
-            buffer[position] = (byte)(length);
+            buffer[position++] = (byte) (length >> 56);
+            buffer[position++] = (byte) (length >> 48);
+            buffer[position++] = (byte) (length >> 40);
+            buffer[position++] = (byte) (length >> 32);
+            buffer[position++] = (byte) (length >> 24);
+            buffer[position++] = (byte) (length >> 16);
+            buffer[position++] = (byte) (length >> 8);
+            buffer[position] = (byte) (length);
         }
     }
 }
